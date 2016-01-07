@@ -6,6 +6,7 @@ import (
 	"os"
 	"time"
 	"unicode/utf8"
+    "bytes"
 
 	"github.com/codegangsta/cli"
 )
@@ -30,16 +31,17 @@ func main() {
 		},
 	}
 	app.Action = func(c *cli.Context) {
-		ken := ""
-		ken += KEN
-		for utf8.RuneCountInString(ken) < c.Int("length") {
+		var ken bytes.Buffer 
+		ken.WriteString(KEN)
+
+		for utf8.RuneCount(ken.Bytes()) < c.Int("length") {
 			rand.Seed(time.Now().UnixNano())
 			i := rand.Intn(len(suffixes))
-			ken += suffixes[i]
+			ken.WriteString(suffixes[i])
 		}
-		ken += "…"
+		ken.WriteString("…")
 
-		fmt.Println(ken)
+		fmt.Println(ken.String())
 	}
 	app.Run(os.Args)
 }
