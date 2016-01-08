@@ -17,7 +17,7 @@ func main() {
 		cli.IntFlag{
 			Name:  "length, l",
 			Value: 140,
-			Usage: "Length for kenchankunsan",
+			Usage: "Length for kenchankunsan. Default is 140",
 		},
 	}
 	app.Action = func(c *cli.Context) {
