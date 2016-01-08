@@ -12,6 +12,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "genchankunsan"
 	app.Author = "hrysd"
+	app.Usage = "Generate kenchankunsan"
 	app.Flags = []cli.Flag{
 		cli.IntFlag{
 			Name:  "length, l",
