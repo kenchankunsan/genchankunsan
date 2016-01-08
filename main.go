@@ -2,22 +2,11 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"os"
-	"time"
-	"unicode/utf8"
-    "bytes"
 
 	"github.com/codegangsta/cli"
+	"github.com/kenchankunsan/genchankunsan/internal/kenchankunsan"
 )
-
-const KEN = "けん"
-
-var suffixes = [3]string{
-	"ちゃん",
-	"くん",
-	"さん",
-}
 
 func main() {
 	app := cli.NewApp()
@@ -31,17 +20,8 @@ func main() {
 		},
 	}
 	app.Action = func(c *cli.Context) {
-		var ken bytes.Buffer 
-		ken.WriteString(KEN)
-
-		for utf8.RuneCount(ken.Bytes()) < c.Int("length") {
-			rand.Seed(time.Now().UnixNano())
-			i := rand.Intn(len(suffixes))
-			ken.WriteString(suffixes[i])
-		}
-		ken.WriteString("…")
-
-		fmt.Println(ken.String())
+		ken := kenchankunsan.Kenchankunsan(c.Int("length"))
+		fmt.Println(ken)
 	}
 	app.Run(os.Args)
 }
